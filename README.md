@@ -1,0 +1,1 @@
+# go-fitfile-tool
