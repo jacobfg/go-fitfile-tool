@@ -19,6 +19,14 @@ var (
         // zwiftFlag bool = false
 )
 
+func SpeedValue(value uint16) uint16 {
+        return uint16(float32(value) / 0.0036)
+}
+
+func AltitudeValue(value uint16) uint16 {
+        return ( value + 500 ) * 5
+}
+
 func fileExists(filename string) bool {
         info, err := os.Stat(filename)
         if err != nil {
@@ -115,15 +123,16 @@ func main() {
         }
  
         for _, session := range activity.Sessions {
+                session.SubSport = fit.SubSportVirtualActivity
                 session.StartPositionLat = fit.NewLatitudeDegrees(-33.852222)
                 session.StartPositionLong = fit.NewLongitudeDegrees(151.210556)
                 // session.TotalDistance = 
                 // session.MinSpeed = 1000
-                session.AvgSpeed = 1000
-                session.MaxSpeed = 1000
-                session.MinAltitude = 8848
-                session.AvgAltitude = 8848
-                session.MaxAltitude = 8848
+                session.AvgSpeed = SpeedValue(30)
+                session.MaxSpeed = SpeedValue(30)
+                session.MinAltitude = AltitudeValue(8848)
+                session.AvgAltitude = AltitudeValue(8848)
+                session.MaxAltitude = AltitudeValue(8848)
                 session.TotalAscent = 0
                 session.TotalDescent = 0
                 // session.MinTemperature = 30
@@ -148,11 +157,11 @@ func main() {
                 lap.EndPositionLong = fit.NewLongitudeDegrees(151.210556)
                 // lap.TotalDistance = 
                 // lap.MinSpeed = 1000
-                lap.AvgSpeed = 1000
-                lap.MaxSpeed = 1000
-                lap.MinAltitude = 8848
-                lap.AvgAltitude = 8848
-                lap.MaxAltitude = 8848
+                lap.AvgSpeed = SpeedValue(30)
+                lap.MaxSpeed = SpeedValue(30)
+                lap.MinAltitude = AltitudeValue(8848)
+                lap.AvgAltitude = AltitudeValue(8848)
+                lap.MaxAltitude = AltitudeValue(8848)
                 lap.TotalAscent = 0
                 lap.TotalDescent = 0
                 // lap.MinTemperature = 30
@@ -172,8 +181,8 @@ func main() {
 
         for _, record := range activity.Records {
                 record.Power = 301
-                record.Speed = 1000
-                record.Altitude = 8848
+                record.Speed = SpeedValue(30)
+                record.Altitude = AltitudeValue(8848)
                 record.PositionLat = fit.NewLatitudeDegrees(-33.852222)
                 record.PositionLong = fit.NewLongitudeDegrees(151.210556)
         }
