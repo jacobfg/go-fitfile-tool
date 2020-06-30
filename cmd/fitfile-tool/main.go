@@ -74,8 +74,8 @@ func main() {
                 log.Fatal("Output file already exists: " + outputFile)
         }
 
-        fmt.Println("inputFile:", inputFile)
-        fmt.Println("outputFile:", outputFile)
+        // fmt.Println("inputFile:", inputFile)
+        // fmt.Println("outputFile:", outputFile)
 
 
 
@@ -113,95 +113,40 @@ func main() {
                 fmt.Println(err)
                 return
         }
+ 
+        for _, session := range activity.Sessions {
+                session.StartPositionLat = fit.NewLatitudeDegrees(-33.852222)
+                session.StartPositionLong = fit.NewLongitudeDegrees(151.210556)
+                // session.TotalDistance = 
+                // session.MinSpeed = 1000
+                session.AvgSpeed = 1000
+                session.MaxSpeed = 1000
+                session.MinAltitude = 8848
+                session.AvgAltitude = 8848
+                session.MaxAltitude = 8848
+                session.TotalAscent = 0
+                session.TotalDescent = 0
+                // session.MinTemperature = 30
+                session.AvgTemperature = 30
+	        session.MaxTemperature = 30
+                session.MinHeartRate = 160
+                session.AvgHeartRate = 160
+                session.MaxHeartRate = 160
+                // session.MinCadence = 90
+                session.AvgCadence = 90
+                session.MaxCadence = 90
+                // session.MinPower = 301
+                session.AvgPower = 301
+                session.MaxPower = 301
+                session.LeftRightBalance = 52
+        }
 
-        if zwiftFile != "" {
-                zwiftData, err := getFitData(zwiftFile)
-                if err != nil {
-                        fmt.Println(err)
-                        return
-                }
-                fmt.Println(zwiftData.FileId.TimeCreated)
-
-                zActivity, err := zwiftData.Activity()
-                if err != nil {
-                        fmt.Println(err)
-                        return
-                }
-
-                if len(activity.Sessions) == len(zActivity.Sessions) && len(zActivity.Sessions) == 1 {
-                        activity.Sessions[0].StartPositionLat = zActivity.Sessions[0].StartPositionLat
-                        activity.Sessions[0].StartPositionLong = zActivity.Sessions[0].StartPositionLong
-                        activity.Sessions[0].TotalDistance = zActivity.Sessions[0].TotalDistance
-                        activity.Sessions[0].AvgSpeed = zActivity.Sessions[0].AvgSpeed
-                        activity.Sessions[0].MaxSpeed = zActivity.Sessions[0].MaxSpeed
-                        activity.Sessions[0].TotalAscent = zActivity.Sessions[0].TotalAscent
-                        activity.Sessions[0].TotalDescent = zActivity.Sessions[0].TotalDescent
-                        // activity.Sessions[0].AvgAltitude = zActivity.Sessions[0].AvgAltitude
-                        // activity.Sessions[0].MaxAltitude = zActivity.Sessions[0].MaxAltitude
-                        // activity.Sessions[0].GpsAccuracy = zActivity.Sessions[0].GpsAccuracy
-                        // activity.Sessions[0].AvgPosVerticalSpeed = zActivity.Sessions[0].AvgPosVerticalSpeed
-                        // activity.Sessions[0].AvgNegVerticalSpeed = zActivity.Sessions[0].AvgNegVerticalSpeed
-                        // activity.Sessions[0].MaxPosVerticalSpeed = zActivity.Sessions[0].MaxPosVerticalSpeed
-                        // activity.Sessions[0].MaxNegVerticalSpeed = zActivity.Sessions[0].MaxNegVerticalSpeed
-                        // activity.Sessions[0].MinAltitude = zActivity.Sessions[0].MinAltitude
-                        activity.Sessions[0].EnhancedAvgSpeed = zActivity.Sessions[0].EnhancedAvgSpeed
-                        activity.Sessions[0].EnhancedMaxSpeed = zActivity.Sessions[0].EnhancedMaxSpeed
-                        // activity.Sessions[0].EnhancedAvgAltitude = zActivity.Sessions[0].EnhancedAvgAltitude
-                        // activity.Sessions[0].EnhancedMinAltitude = zActivity.Sessions[0].EnhancedMinAltitude
-                        // activity.Sessions[0].EnhancedMaxAltitude = zActivity.Sessions[0].EnhancedMaxAltitude
-                        // activity.Sessions[0].AvgVam = zActivity.Sessions[0].AvgVam
-                        fmt.Printf("StartPositionLat: %s\n", zActivity.Sessions[0].StartPositionLat)
-                        fmt.Printf("StartPositionLong: %s\n", zActivity.Sessions[0].StartPositionLong)
-                        fmt.Printf("TotalDistance: %d\n", zActivity.Sessions[0].TotalDistance)
-                        fmt.Printf("AvgSpeed: %d\n", zActivity.Sessions[0].AvgSpeed)
-                        fmt.Printf("MaxSpeed: %d\n", zActivity.Sessions[0].MaxSpeed)
-                        fmt.Printf("TotalAscent: %d\n", zActivity.Sessions[0].TotalAscent)
-                        fmt.Printf("TotalDescent: %d\n", zActivity.Sessions[0].TotalDescent)
-                        // fmt.Printf("AvgAltitude: %d\n", zActivity.Sessions[0].AvgAltitude)
-                        // fmt.Printf("MaxAltitude: %d\n", zActivity.Sessions[0].MaxAltitude)
-                        // fmt.Printf("GpsAccuracy: %d\n", zActivity.Sessions[0].GpsAccuracy)
-                        // fmt.Printf("AvgPosVerticalSpeed: %d\n", zActivity.Sessions[0].AvgPosVerticalSpeed)
-                        // fmt.Printf("AvgNegVerticalSpeed: %d\n", zActivity.Sessions[0].AvgNegVerticalSpeed)
-                        // fmt.Printf("MaxPosVerticalSpeed: %d\n", zActivity.Sessions[0].MaxPosVerticalSpeed)
-                        // fmt.Printf("MaxNegVerticalSpeed: %d\n", zActivity.Sessions[0].MaxNegVerticalSpeed)
-                        // fmt.Printf("MinAltitude: %d\n", zActivity.Sessions[0].MinAltitude)
-                        fmt.Printf("EnhancedAvgSpeed: %d\n", zActivity.Sessions[0].EnhancedAvgSpeed)
-                        fmt.Printf("EnhancedMaxSpeed: %d\n", zActivity.Sessions[0].EnhancedMaxSpeed)
-                        // fmt.Printf("EnhancedAvgAltitude: %d\n", zActivity.Sessions[0].EnhancedAvgAltitude)
-                        // fmt.Printf("EnhancedMinAltitude: %d\n", zActivity.Sessions[0].EnhancedMinAltitude)
-                        // fmt.Printf("EnhancedMaxAltitude: %d\n", zActivity.Sessions[0].EnhancedMaxAltitude)
-                        // fmt.Printf("AvgVam: %d\n", zActivity.Sessions[0].AvgVam)
-                // for _, session := range activity.Sessions {
-                //         fmt.Println(session.Sport)
-                //         break
-
-                        // fmt.Print("Single session")
-
-                        for _, record := range activity.Records {
-
-                                for _, zrecord := range zActivity.Records {
-
-                                        if zrecord.Timestamp == record.Timestamp {
-                                                fmt.Print(".")
-                                                // fmt.Printf(" Timestamp: %d\n", record.Timestamp)
-                                                record.PositionLat = zrecord.PositionLat
-                                                record.PositionLong = zrecord.PositionLong
-                                                record.Speed = zrecord.Speed
-                                                record.Altitude = zrecord.Altitude
-
-                                                record.Speed1s = zrecord.Speed1s
-                                                record.Resistance = zrecord.Resistance
-                                                record.Distance = zrecord.Distance
-                                                record.GpsAccuracy = zrecord.GpsAccuracy
-                                                record.VerticalSpeed = zrecord.VerticalSpeed
-                                                record.EnhancedSpeed = zrecord.EnhancedSpeed
-                                                record.EnhancedAltitude = zrecord.EnhancedAltitude
-                                                // fmt.Printf(" EnhancedSpeed: %d\n", record.PositionLong)
-                                                break
-                                        }
-                                }
-                        }
-                }
+        for _, record := range activity.Records {
+                record.Power = 301
+                record.Speed = 1000
+                record.Altitude = 8848
+                record.PositionLat = fit.NewLatitudeDegrees(-33.852222)
+                record.PositionLong = fit.NewLongitudeDegrees(151.210556)
         }
 
 
@@ -222,6 +167,59 @@ func main() {
         //         break
         // }
 
+
+        for _, record := range activity.Records {
+                fmt.Printf("Timestamp: %d\n", record.Timestamp)
+                fmt.Printf("PositionLat: %d\n", record.PositionLat)
+                fmt.Printf("PositionLong: %d\n", record.PositionLong)
+                fmt.Printf("Altitude: %d\n", record.Altitude)
+                fmt.Printf("HeartRate: %d\n", record.HeartRate)
+                fmt.Printf("Cadence: %d\n", record.Cadence)
+                fmt.Printf("Distance: %d\n", record.Distance)
+                fmt.Printf("Speed: %d\n", record.Speed)
+                fmt.Printf("Power: %d\n", record.Power)
+                // fmt.Printf("CompressedSpeedDistance: %d\n", record.CompressedSpeedDistance)
+                // fmt.Printf("Grade: %d\n", record.Grade)
+                // fmt.Printf("Resistance: %d\n", record.Resistance)
+                // fmt.Printf("TimeFromCourse: %d\n", record.TimeFromCourse)
+                // fmt.Printf("CycleLength: %d\n", record.CycleLength)
+                // fmt.Printf("Temperature: %d\n", record.Temperature)
+                // fmt.Printf("Speed1s: %d\n", record.Speed1s)
+                // fmt.Printf("Cycles: %d\n", record.Cycles)
+                // fmt.Printf("TotalCycles: %d\n", record.TotalCycles)
+                // fmt.Printf("CompressedAccumulatedPower: %d\n", record.CompressedAccumulatedPower)
+                // fmt.Printf("AccumulatedPower: %d\n", record.AccumulatedPower)
+                fmt.Printf("LeftRightBalance: %d\n", record.LeftRightBalance)
+                // fmt.Printf("GpsAccuracy: %d\n", record.GpsAccuracy)
+                // fmt.Printf("VerticalSpeed: %d\n", record.VerticalSpeed)
+                // fmt.Printf("Calories: %d\n", record.Calories)
+                // fmt.Printf("VerticalOscillation: %d\n", record.VerticalOscillation)
+                // fmt.Printf("StanceTimePercent: %d\n", record.StanceTimePercent)
+                // fmt.Printf("StanceTime: %d\n", record.StanceTime)
+                // fmt.Printf("ActivityType: %d\n", record.ActivityType)
+                // fmt.Printf("LeftTorqueEffectiveness: %d\n", record.LeftTorqueEffectiveness)
+                // fmt.Printf("RightTorqueEffectiveness: %d\n", record.RightTorqueEffectiveness)
+                // fmt.Printf("LeftPedalSmoothness: %d\n", record.LeftPedalSmoothness)
+                // fmt.Printf("RightPedalSmoothness: %d\n", record.RightPedalSmoothness)
+                // fmt.Printf("CombinedPedalSmoothness: %d\n", record.CombinedPedalSmoothness)
+                // fmt.Printf("Time128: %d\n", record.Time128)
+                // fmt.Printf("StrokeType: %d\n", record.StrokeType)
+                // fmt.Printf("Zone: %d\n", record.Zone)
+                // fmt.Printf("BallSpeed: %d\n", record.BallSpeed)
+                // fmt.Printf("Cadence256: %d\n", record.Cadence256)
+                // fmt.Printf("FractionalCadence: %d\n", record.FractionalCadence)
+                // fmt.Printf("TotalHemoglobinConc: %d\n", record.TotalHemoglobinConc)
+                // fmt.Printf("TotalHemoglobinConcMin: %d\n", record.TotalHemoglobinConcMin)
+                // fmt.Printf("TotalHemoglobinConcMax: %d\n", record.TotalHemoglobinConcMax)
+                // fmt.Printf("SaturatedHemoglobinPercent: %d\n", record.SaturatedHemoglobinPercent)
+                // fmt.Printf("SaturatedHemoglobinPercentMin: %d\n", record.SaturatedHemoglobinPercentMin)
+                // fmt.Printf("SaturatedHemoglobinPercentMax: %d\n", record.SaturatedHemoglobinPercentMax)
+                // fmt.Printf("DeviceIndex: %d\n", record.DeviceIndex)
+                // fmt.Printf("EnhancedSpeed: %d\n", record.EnhancedSpeed)
+                // fmt.Printf("EnhancedAltitude: %d\n", record.EnhancedAltitude)
+                fmt.Println()
+        }
+
         // outBuf := bufio.NewWriter(outputFile)
         outBuf, err := os.Create(outputFile)
         if err != nil {
@@ -231,6 +229,54 @@ func main() {
         err = fit.Encode(outBuf, fitData, binary.LittleEndian)
         if err != nil {
                 log.Fatalf("encode: got error, want none; error is: %v", err)
+        }
+
+
+
+
+        // test outputFile
+        outData, err := getFitData(outputFile)
+        if err != nil {
+                fmt.Println(err)
+                return
+        }
+
+        activity, err = outData.Activity()
+        if err != nil {
+                fmt.Println(err)
+                return
+        }
+
+        fmt.Printf("StartPositionLat: %s\n", activity.Sessions[0].StartPositionLat)
+        fmt.Printf("StartPositionLong: %s\n", activity.Sessions[0].StartPositionLong)
+        fmt.Printf("TotalDistance: %d\n", activity.Sessions[0].TotalDistance)
+        fmt.Printf("AvgSpeed: %d\n", activity.Sessions[0].AvgSpeed)
+        fmt.Printf("MaxSpeed: %d\n", activity.Sessions[0].MaxSpeed)
+        fmt.Printf("TotalAscent: %d\n", activity.Sessions[0].TotalAscent)
+        fmt.Printf("TotalDescent: %d\n", activity.Sessions[0].TotalDescent)
+        fmt.Printf("EnhancedAvgSpeed: %d\n", activity.Sessions[0].EnhancedAvgSpeed)
+        fmt.Printf("EnhancedMaxSpeed: %d\n", activity.Sessions[0].EnhancedMaxSpeed)
+
+        for _, record := range activity.Records {
+
+                // fmt.Printf(" Timestamp: %d\n", record.Timestamp)
+                // record.PositionLat = zrecord.PositionLat
+                // record.PositionLong = zrecord.PositionLong
+                // record.Speed = zrecord.Speed
+                // record.Altitude = zrecord.Altitude
+
+                // record.Speed1s = zrecord.Speed1s
+                // record.Resistance = zrecord.Resistance
+                // record.Distance = zrecord.Distance
+                // record.GpsAccuracy = zrecord.GpsAccuracy
+                // record.VerticalSpeed = zrecord.VerticalSpeed
+                // record.EnhancedSpeed = zrecord.EnhancedSpeed
+                // record.EnhancedAltitude = zrecord.EnhancedAltitude
+                // fmt.Printf("PositionLat: %d\n", record.PositionLat)
+                // fmt.Printf("PositionLong: %d\n", record.PositionLong)
+                fmt.Printf("n Positions Long Lat: %d.%d\n", record.PositionLong, record.PositionLat)
+                fmt.Printf("n Speed: %d\n", record.Speed)
+                fmt.Printf("n Altitude: %d\n", record.Altitude)
         }
 
 }
