@@ -147,7 +147,7 @@ func main() {
                 // session.MinPower = 301
                 session.AvgPower = 301
                 session.MaxPower = 301
-                session.LeftRightBalance = 52
+                // session.LeftRightBalance = 52
         }
 
         for _, lap := range activity.Laps {
@@ -181,6 +181,9 @@ func main() {
 
         for _, record := range activity.Records {
                 record.Power = 301
+                record.Cadence = 90
+                record.HeartRate = 160
+                // record.LeftRightBalance = 50
                 record.Speed = SpeedValue(30)
                 record.Altitude = AltitudeValue(8848)
                 record.PositionLat = fit.NewLatitudeDegrees(-33.852222)
@@ -315,6 +318,10 @@ func main() {
                 fmt.Printf("n Positions Long Lat: %d.%d\n", record.PositionLong, record.PositionLat)
                 fmt.Printf("n Speed: %d\n", record.Speed)
                 fmt.Printf("n Altitude: %d\n", record.Altitude)
+                fmt.Printf("n Cadence: %d\n", record.Cadence)
+                fmt.Printf("n HeartRate: %d\n", record.HeartRate)
+                fmt.Printf("n Power: %d\n", record.Power)
+                fmt.Printf("n LeftRightBalance: %d\n", record.LeftRightBalance)
         }
 
 }
