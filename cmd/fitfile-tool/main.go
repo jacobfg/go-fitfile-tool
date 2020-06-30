@@ -141,6 +141,35 @@ func main() {
                 session.LeftRightBalance = 52
         }
 
+        for _, lap := range activity.Laps {
+                lap.StartPositionLat = fit.NewLatitudeDegrees(-33.852222)
+                lap.StartPositionLong = fit.NewLongitudeDegrees(151.210556)
+                lap.EndPositionLat = fit.NewLatitudeDegrees(-33.852222)
+                lap.EndPositionLong = fit.NewLongitudeDegrees(151.210556)
+                // lap.TotalDistance = 
+                // lap.MinSpeed = 1000
+                lap.AvgSpeed = 1000
+                lap.MaxSpeed = 1000
+                lap.MinAltitude = 8848
+                lap.AvgAltitude = 8848
+                lap.MaxAltitude = 8848
+                lap.TotalAscent = 0
+                lap.TotalDescent = 0
+                // lap.MinTemperature = 30
+                lap.AvgTemperature = 30
+	        lap.MaxTemperature = 30
+                lap.MinHeartRate = 160
+                lap.AvgHeartRate = 160
+                lap.MaxHeartRate = 160
+                // lap.MinCadence = 90
+                lap.AvgCadence = 90
+                lap.MaxCadence = 90
+                // lap.MinPower = 301
+                lap.AvgPower = 301
+                lap.MaxPower = 301
+                lap.LeftRightBalance = 52
+        }
+
         for _, record := range activity.Records {
                 record.Power = 301
                 record.Speed = 1000
